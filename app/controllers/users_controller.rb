@@ -51,7 +51,7 @@ class UsersController < ApplicationController
                 
                 puts "Redir"
                 
-                redirect_to '/users/#{@user.id}/tracks/'
+                redirect_to '/users/#{user.id}/tracks/'
 
             else
 
