@@ -2,5 +2,5 @@
 
 <h1>Shuffler Login</h1>
 
-<a href="http://www.shuffler.fm/authorizations/auth?scope=users.favorites.r&app-key=dhdlhjvx6b&redir_uri=http://localhost:3000/users/shufferLogin">Click here to log in</a>
+<a href="http://www.shuffler.fm/authorizations/auth?scope=users.favorites.r&app-key=63rm78kb8c&redir_uri=http://infinite-headland-1627.herokuapp.com/users/shufferLogin">Click here to log in</a>
 

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
          @user = User.find_or_create_by_name User.find_by_shufflerId(params[:user])
 
          resource = Addressable::URI.parse("https://shuffler.fm/authorizations/token")
-         resource.query_values = {'app-key' => APP_KEY, "app-secret" => APP_SECRET, "code" => params["code"] }
+         resource.query_values = {'app-key' => "63rm78kb8c", "app-secret" => "76zlto5v3ort2vm7drzjqz8foh2fpfnvym56lu9ay", "code" => params["code"] }
 
          response = RestClient.post(resource)
 
