@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+   $stdout.sync = true
+
    require 'rubygems'
    require 'open-uri'
    require 'addressable/uri'
@@ -37,19 +39,25 @@ class UsersController < ApplicationController
             response = RestClient.post( urlAuth, {} )
 
             if response.code == 200
+            
+               puts "Getting code"
+            
                data = JSON.parse(response.to_str)
+
+               puts "Setting session"
 
                # Here we simulate a login by saving the token to the session
                session[:access_token] = data['access_token']
-
-               flash[:alert] = "success"
-               flash.keep(:alert)
-               redirect_to '/'
-               
-               redirect_to '/'
+                
+                puts "Redir"
+                
+                 #               redirect_to '/users/#{@user.id]}/tracks/'
 
             else
 
+
+               puts "Nomor"               
+               
                flash[:alert] = "Unable to fetch access token from shuffler.fm"
                flash.keep(:alert)
                redirect_to '/'
