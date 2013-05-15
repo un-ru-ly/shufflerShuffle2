@@ -41,7 +41,12 @@ class UsersController < ApplicationController
 
                # Here we simulate a login by saving the token to the session
                session[:access_token] = data['access_token']
-               redirect_to '/users/#{@user.id]}/tracks/'
+
+               flash[:alert] = "success"
+               flash.keep(:alert)
+               redirect_to '/'
+               
+               redirect_to '/'
 
             else
 
