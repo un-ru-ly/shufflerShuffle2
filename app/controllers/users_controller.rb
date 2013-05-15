@@ -1,48 +1,72 @@
 class UsersController < ApplicationController
+
+   require 'rubygems'
+   require 'open-uri'
+   require 'addressable/uri'
+   require 'json'
+   require 'rest_client'
+ 
   # GET /users
   # GET /users.json
-  def index
-    @users = User.all
+   def index
+     @users = User.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
-  end
-
-   def shufflerCallback
+     respond_to do |format|
+       format.html # index.html.erb
+       format.json { render json: @users }
+     end
+   end
+ 
+   def shufferLogin
 
       # The user gave use permission
       if params["success"] == 'true'
 
          # Check if user with this shufflerId already exists.
-         @user = User.find_or_create_by_name User.find_by_shufflerId(params[:user])
+         @user = User.find_or_create_by_name User.find_by_shufflerId(params[:u_id])
 
          resource = Addressable::URI.parse("https://shuffler.fm/authorizations/token")
-         resource.query_values = {'app-key' => "63rm78kb8c", "app-secret" => "76zlto5v3ort2vm7drzjqz8foh2fpfnvym56lu9ay", "code" => params["code"] }
+         resource.query_values = {
+                  "app-key" => "63rm78kb8c", 
+                  "app-secret" => "76zlto5v3ort2vm7drzjqz8foh2fpfnvym56lu9ay",
+                  "code" => params["code"]
+               }
+         urlAuth = resource.to_s
+            
+         begin
+            response = RestClient.post( urlAuth, {} )
 
-         response = RestClient.post(resource)
+            if response.code == 200
+               data = JSON.parse(response.to_str)
 
-         if response.code == 200
-            data = JSON.parse(response.to_str)
+               # Here we simulate a login by saving the token to the session
+               session[:access_token] = data['access_token']
+               redirect_to '/users/#{@user.id]}/tracks/'
 
-            # Here we simulate a login by saving the token to the session
-            session[:access_token] = data['access_token']
-            redirect '/users/#{@user.id]}/tracks/'
+            else
 
-         else
+               flash[:alert] = "Unable to fetch access token from shuffler.fm"
+               flash.keep(:alert)
+               redirect_to '/'
 
-            flash[:alert] = "Unable to fetch access token from shuffler.fm"
+            end
+            
+           rescue => e
 
-         end
+               flash[:alert] = "Unable to access shuffler"
+               flash.keep(:alert)
+               redirect_to '/'
+           
+           end
          
       else
 
            flash[:alert] = "No success parameter was passed"
-           flash.keep(:notice)
+           flash.keep(:alert)
+           redirect_to '/'
 
       end
-   
+
    end
 
   # GET /users/1

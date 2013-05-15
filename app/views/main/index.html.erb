@@ -1,4 +1,11 @@
 <!--Shuffler-63rm78kb8c-->
+
+<% if flash[:alert] %>
+ <div class="alert"><%= flash[:alert] %></div>
+<% else %>
+   <div id="wait">Loggin in. You're not supposed to see this</div>
+<% end %>
+
 <div id="content">
 	Loading
 </div>

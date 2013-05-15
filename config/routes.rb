@@ -1,10 +1,11 @@
 ShufflerFavorites::Application.routes.draw do
-  root to:"main#index"
+   root to:"main#index"
 
-  resources :tracks
+   match 'users/shufferLogin', :to => 'users#shufferLogin'
 
-  match 'users/shufflerCallback' => 'users#shufflerCallback'
-  resources :users
+   resources :tracks
+
+   resources :users
 
 
   # The priority is based upon order of creation:
