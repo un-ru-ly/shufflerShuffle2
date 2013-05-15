@@ -43,4 +43,4 @@ gem 'jquery-rails'
 
 gem 'backbone-on-rails'
 gem 'addressable'
-gme 'restclient'
+gem 'rest-client'
