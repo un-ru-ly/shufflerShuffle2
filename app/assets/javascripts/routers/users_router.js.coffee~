@@ -1,0 +1,9 @@
+class ShufflerFavorites.Routers.Users extends Backbone.Router
+	routes:
+ '': 'index'
+ 'shufflerCallback': 'handleShufflerCallback'
+ 'users/:id': 'show'
+
+ index: -> alert "users"
+ shufflerCallback: ->  alert "callback"
+

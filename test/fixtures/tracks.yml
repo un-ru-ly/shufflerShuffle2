@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  shufflerId: 1
+  title: MyString
+  order: 1
+
+two:
+  shufflerId: 1
+  title: MyString
+  order: 1
