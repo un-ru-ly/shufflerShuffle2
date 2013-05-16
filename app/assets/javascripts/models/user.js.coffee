@@ -15,5 +15,5 @@ class ShufflerFavorites.Models.User extends Backbone.Model
 
         for key, value of shufflerTrackData
           @tracks.create ({userId: @id, trackId: value}) if not @tracks.where
-
+x
     )
