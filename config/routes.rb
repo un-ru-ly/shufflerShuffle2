@@ -3,10 +3,16 @@ ShufflerFavorites::Application.routes.draw do
 
    match 'users/shufferLogin', :to => 'users#shufferLogin'
 
-   resources :tracks
+   resources :users do
+      resources :tracks
+   end
 
-   resources :users
 
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

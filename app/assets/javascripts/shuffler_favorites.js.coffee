@@ -5,7 +5,7 @@ window.ShufflerFavorites =
    Routers: {}
    initialize: -> 
       new ShufflerFavorites.Routers.Users()
-      console.log Backbone.history.start()
+      console.log Backbone.history.start({pushState: true})
 
 
 $(document).ready ->

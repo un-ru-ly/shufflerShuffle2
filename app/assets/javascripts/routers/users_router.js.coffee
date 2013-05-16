@@ -1,17 +1,22 @@
 class ShufflerFavorites.Routers.Users extends Backbone.Router
 
-   routes:
-      '': 'index'
-      'users/': 'callUsers'
-      'shufflerCallback': 'handleShufflerCallback'
+  routes:
+    '': 'index'
+    'users/': 'callUsers'
+    'users/:id/tracks/': 'getUserTracks'
 
-   index: ->
-      view = new ShufflerFavorites.Views.UsersIndex()
-      $('#content').html(view.render().el)
+  index: ->
+    @collection = new ShufflerFavorites.Collections.Users();
+    @collection.fetch()
+    
+    view = new ShufflerFavorites.Views.UsersIndex(collection: @collection)
+    $('#content').html(view.render().el)
 
-   shufflerCallback: ->
-      alert "callback"
-      
-   callUsers: ->
-      alert "showUsers"
-
+  getUserTracks: (id) ->
+    User = new ShufflerFavorites.Models.User({id: id});
+    User.fetch(
+      success: ->
+        console.log('Fetched user information')
+        User.getTracksFromShuffler()
+    )
+    

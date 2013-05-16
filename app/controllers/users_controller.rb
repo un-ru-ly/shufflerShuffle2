@@ -47,16 +47,16 @@ class UsersController < ApplicationController
                puts "Setting session"
 
                # Here we simulate a login by saving the token to the session
-               session[:access_token] = data['access_token']
-                
-                puts "Redir"
-                
-                redirect_to '/users/#{user.id}/tracks/'
+               @user.shufflerKey = data['access_token']
+               @user.save
+               
+               puts "Redirect to"
+
+               redirect_to  '/users/' + @user.id.to_s + '/tracks/'
 
             else
 
-
-               puts "Nomor"               
+               puts "Unable to fetch access token from shuffler.fm"               
                
                flash[:alert] = "Unable to fetch access token from shuffler.fm"
                flash.keep(:alert)
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
             
            rescue => e
 
-               flash[:alert] = "Unable to access shuffler"
+               flash[:alert] = "Unable to access shuffler.fm"
                flash.keep(:alert)
                redirect_to '/'
            
@@ -87,8 +87,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
+#     redirect_to '/users/#{user.id}/tracks/'
+     
+    #'/users/' + @user.id.to_s + '/tracks/'
+      
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to '/users/' + @user.id.to_s + '/tracks/' }
       format.json { render json: @user }
     end
   end
