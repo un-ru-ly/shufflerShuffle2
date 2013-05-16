@@ -11,9 +11,9 @@ class ShufflerFavorites.Models.User extends Backbone.Model
         console.log('Fetched track information')
 
         # Get new tracks from shuffler
-        shufflerTrackData = $.getJSON "https://api.shuffler.fm/v2/user/" + @get('shufflerId')+ "/favorites/?app-key=63rm78kb8c&access_token=" + @get('shufflerKey')
+        shufflerTrackData = $.getJSON "https://www.shuffler.fm/api/v2/user/" + @get('shufflerId')+ "/favorites/?app-key=63rm78kb8c&access_token=" + @get('shufflerKey')
 
         for key, value of shufflerTrackData
           @tracks.create ({userId: @id, trackId: value}) if not @tracks.where
-x
+
     )
