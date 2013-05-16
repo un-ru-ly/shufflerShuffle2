@@ -47,6 +47,7 @@ class UsersController < ApplicationController
                puts "Setting session"
 
                # Here we simulate a login by saving the token to the session
+               @user.shufflerId = params[:u_id]
                @user.shufflerKey = data['access_token']
                @user.save
                
