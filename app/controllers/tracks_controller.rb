@@ -3,11 +3,16 @@ class TracksController < ApplicationController
   # GET /tracks.json
   def index
     @tracks = Track.all
-
+     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { redirect_to '#/users/' + params[:user_id] + '/tracks/' }
       format.json { render json: @tracks }
     end
+     
+    #respond_to do |format|
+     # format.html # index.html.erb
+    #  format.json 
+   # end
   end
 
   # GET /tracks/1
@@ -40,14 +45,21 @@ class TracksController < ApplicationController
   # POST /tracks
   # POST /tracks.json
   def create
-    @track = Track.new(params[:track])
 
+    #todo: server side check on uniqueness
+
+   # @track = Track.find(:shufflerId => params[:trackId])
+    
+    if not @track
+      @track = Track.new(:shufflerId => params[:trackId], :order => 999)
+    end
+    
     respond_to do |format|
       if @track.save
-        format.html { redirect_to @track, notice: 'Track was successfully created.' }
-        format.json { render json: @track, status: :created, location: @track }
+        #format.html { redirect_to @track, notice: 'Track was successfully created.' }
+        format.json { render json: @track, status: :created }
       else
-        format.html { render action: "new" }
+        #format.html { render action: "new" }
         format.json { render json: @track.errors, status: :unprocessable_entity }
       end
     end
