@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       if params["success"] == 'true'
 
          # Check if user with this shufflerId already exists.
-         @user = User.find_or_create_by_name User.find_by_shufflerId(params[:u_id])
+         @user = User.find_by_shufflerId(params[:u_id])
 
          resource = Addressable::URI.parse("https://shuffler.fm/authorizations/token")
          resource.query_values = {
