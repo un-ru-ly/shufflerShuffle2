@@ -1,4 +1,4 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :shufflerId
+  attr_accessible :id, :name, :shufflerId
   has_many :tracks
 end
